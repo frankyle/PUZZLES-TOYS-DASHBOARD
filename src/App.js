@@ -25,6 +25,18 @@ import IndicatorsTable from "./components/Indicators/IndicatorsTable";
 import IndicatorsView from "./components/Indicators/IndicatorsView";
 import IndicatorsUpdate from "./components/Indicators/IndicatorsUpdate";
 import IndicatorsCreate from "./components/Indicators/IndicatorsCreate";
+import PuzzleTable from "./components/Puzzles/PuzzlesTable";
+import PuzzleCreate from "./components/Puzzles/PuzzleCreate";
+import PuzzleDetails from "./components/Puzzles/PuzzleDetails";
+import PuzzleUpdate from "./components/Puzzles/PuzzleUpdate";
+import ToysTable from "./components/Toys/ToysTable";
+import GamesTable from "./components/Games/GamesTable";
+import GameDetails from "./components/Games/GameDetails";
+import ToyDetails from "./components/Toys/ToyDetails";
+import ToysUpdate from "./components/Toys/ToyUpdate";
+import GameUpdate from "./components/Games/GameUpdate";
+import GameCreate from "./components/Games/GameCreate";
+import ToyCreate from "./components/Toys/ToyCreate";
 
 function App() {
   return (
@@ -59,7 +71,26 @@ function App() {
             <Route path="/indicators-create" element={<IndicatorsCreate />} />
             <Route path="/indicators-view/:id" element={<IndicatorsView />} />
             <Route path="/indicators-edit/:id" element={<IndicatorsUpdate />} />
-          
+
+            
+            <Route path="/puzzle" element={<PuzzleTable />} />
+            <Route path="/puzzle-create" element={<PuzzleCreate />} />
+            <Route path="/puzzle-view/:id" element={<PuzzleDetails />} />
+            <Route path="/puzzle-edit/:id" element={<PuzzleUpdate />} />
+
+
+
+            <Route path="/toys" element={<ToysTable />} />
+            <Route path="/toy-create" element={<ToyCreate />} />
+            <Route path="/toy-view/:id" element={<ToyDetails />} />
+            <Route path="/toy-edit/:id" element={<ToysUpdate />} />
+
+
+            <Route path="/games" element={<GamesTable />} />
+            <Route path="/game-create" element={<GameCreate />} />
+            <Route path="/game-view/:id" element={<GameDetails />} />
+            <Route path="/game-edit/:id" element={<GameUpdate />} />
+
             <Route path="/billing" element={<Billing />} />
             <Route path="/login" element={<Login />} />
           </Routes>

@@ -61,7 +61,7 @@ const CandleImages = () => {
     }
   };
 
-  return (
+  return ( 
     <div className="overflow-x-auto shadow-md sm:rounded-lg">
       <CreateButton text="Create Task" redirectTo="/candles-image-create" />
       <table className="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
