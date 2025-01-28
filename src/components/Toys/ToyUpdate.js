@@ -3,27 +3,27 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../auth/axiosInstance';
 import { FaSave, FaUndo } from 'react-icons/fa';
 
-const PuzzleUpdate = () => {
-  const { id } = useParams(); // Get puzzle ID from URL
-  const [puzzle, setPuzzle] = useState(null);
+const ToyUpdate = () => {
+  const { id } = useParams(); // Get toy ID from URL
+  const [toy, setToy] = useState(null);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPuzzleDetails = async () => {
+    const fetchToyDetails = async () => {
       try {
-        const response = await axiosInstance.get(`/api/puzzles/puzzles/${id}/`);
-        setPuzzle(response.data);
-        setFormData(response.data); // Initialize form data with fetched puzzle data
+        const response = await axiosInstance.get(`/api/toys/toys/${id}/`);
+        setToy(response.data);
+        setFormData(response.data); // Initialize form data with fetched toy data
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching puzzle details:', error);
+        console.error('Error fetching toy details:', error);
         setLoading(false);
       }
     };
 
-    fetchPuzzleDetails();
+    fetchToyDetails();
   }, [id]);
 
   const handleInputChange = (e) => {
@@ -54,16 +54,16 @@ const PuzzleUpdate = () => {
     }
 
     try {
-      await axiosInstance.put(`/api/puzzles/puzzles/${id}/`, data, {
+      await axiosInstance.put(`/api/toys/toys/${id}/`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      alert('Puzzle details updated successfully.');
-      navigate(`/puzzles`); // Redirect to puzzle list page after saving
+      alert('Toy details updated successfully.');
+      navigate(`/toys`); // Redirect to toy list page after saving
     } catch (error) {
-      console.error('Error updating puzzle details:', error);
-      alert('Failed to update puzzle details.');
+      console.error('Error updating toy details:', error);
+      alert('Failed to update toy details.');
     }
   };
 
@@ -71,20 +71,20 @@ const PuzzleUpdate = () => {
     return <div>Loading...</div>;
   }
 
-  if (!puzzle) {
-    return <div>Puzzle not found.</div>;
+  if (!toy) {
+    return <div>Toy not found.</div>;
   }
 
   return (
     <div className="max-w-3xl mx-auto p-4 bg-white shadow rounded-lg">
-      <h1 className="text-2xl font-semibold mb-4">Update Puzzle</h1>
+      <h1 className="text-2xl font-semibold mb-4">Update Toy</h1>
 
       <div className="mb-4">
-        <label className="block text-lg font-medium mb-1">Title:</label>
+        <label className="block text-lg font-medium mb-1">Name:</label>
         <input
           type="text"
-          name="title"
-          value={formData.title || ''}
+          name="name"
+          value={formData.name || ''}
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
@@ -134,6 +134,17 @@ const PuzzleUpdate = () => {
       </div>
 
       <div className="mb-4">
+        <label className="block text-lg font-medium mb-1">Age Group:</label>
+        <input
+          type="text"
+          name="age_group"
+          value={formData.age_group || ''}
+          onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div className="mb-4">
         <label className="block text-lg font-medium mb-1">Image:</label>
         <input
           type="file"
@@ -141,10 +152,10 @@ const PuzzleUpdate = () => {
           onChange={handleFileChange}
           className="w-full px-4 py-2 border rounded-md focus:outline-none"
         />
-        {puzzle.image && (
+        {toy.image && (
           <img
-            src={puzzle.image}
-            alt="Puzzle Image"
+            src={toy.image}
+            alt="Toy Image"
             className="w-32 h-32 object-contain mt-2"
           />
         )}
@@ -162,7 +173,7 @@ const PuzzleUpdate = () => {
 
         {/* Cancel Button */}
         <button
-          onClick={() => navigate(`/puzzle-details/${id}`)}
+          onClick={() => navigate(`/toy-details/${id}`)}
           className="px-4 py-2 rounded-md bg-gray-500 text-white hover:bg-gray-600"
         >
           <FaUndo size={16} className="inline mr-2" />
@@ -173,4 +184,4 @@ const PuzzleUpdate = () => {
   );
 };
 
-export default PuzzleUpdate;
+export default ToyUpdate;

@@ -36,7 +36,7 @@ function Header() {
             className="md:hidden text-white hover:text-yellow-500"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            <svg
+            <svg 
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -57,7 +57,7 @@ function Header() {
       {/* Divider and Desktop Nav */}
       <div className="hidden md:block border-t border-gray-300 mt-2">
         <ul className="flex justify-end space-x-12 items-center text-base px-4 py-2">
-          {["Dashboard", "Trade Details", "Candle Images", "Indicators Confirmations", "Tasks", "Billing"].map(
+          {["Dashboard", "Trade Details", "Candle Images", "Indicators Confirmations", "Tasks", "Billing", "Puzzle", "Toys", "Games"].map(
             (item) => (
               <li key={item}>
                 <Link
@@ -114,7 +114,7 @@ function Header() {
 
         {/* Navigation Links */}
         <ul className="flex flex-col space-y-6 p-6 mt-4">
-          {["Dashboard", "Trade Details", "Candle Images", "Indicators Confirmations", "Tasks", "Billing"].map(
+          {["Dashboard", "Trade Details", "Candle Images", "Indicators Confirmations", "Tasks", "Billing", "Puzzle", "Toys", "Games"].map(
             (item) => (
               <li key={item}>
                 <Link
