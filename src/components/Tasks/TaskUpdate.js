@@ -3,27 +3,27 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../auth/axiosInstance';
 import { FaSave, FaUndo } from 'react-icons/fa';
 
-const PuzzleUpdate = () => {
-  const { id } = useParams(); // Get puzzle ID from URL
-  const [puzzle, setPuzzle] = useState(null);
+const TaskUpdate = () => {
+  const { id } = useParams(); // Get task ID from URL
+  const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPuzzleDetails = async () => {
+    const fetchTaskDetails = async () => {
       try {
-        const response = await axiosInstance.get(`/api/puzzles/puzzles/${id}/`);
-        setPuzzle(response.data);
-        setFormData(response.data); // Initialize form data with fetched puzzle data
+        const response = await axiosInstance.get(`/api/task/tasks/${id}/`);
+        setTask(response.data);
+        setFormData(response.data); // Initialize form data with fetched task data
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching puzzle details:', error);
+        console.error('Error fetching task details:', error);
         setLoading(false);
       }
     };
 
-    fetchPuzzleDetails();
+    fetchTaskDetails();
   }, [id]);
 
   const handleInputChange = (e) => {
@@ -54,16 +54,16 @@ const PuzzleUpdate = () => {
     }
 
     try {
-      await axiosInstance.put(`/api/puzzles/puzzles/${id}/`, data, {
+      await axiosInstance.put(`/api/task/tasks/${id}/`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      alert('Puzzle details updated successfully.');
-      navigate(`/puzzles`); // Redirect to puzzle list page after saving
+      alert('Task details updated successfully.');
+      navigate(`/tasks`); // Redirect to task details page after saving
     } catch (error) {
-      console.error('Error updating puzzle details:', error);
-      alert('Failed to update puzzle details.');
+      console.error('Error updating task details:', error);
+      alert('Failed to update task details.');
     }
   };
 
@@ -71,13 +71,13 @@ const PuzzleUpdate = () => {
     return <div>Loading...</div>;
   }
 
-  if (!puzzle) {
-    return <div>Puzzle not found.</div>;
+  if (!task) {
+    return <div>Task not found.</div>;
   }
 
   return (
     <div className="max-w-3xl mx-auto p-4 bg-white shadow rounded-lg">
-      <h1 className="text-2xl font-semibold mb-4">Update Puzzle</h1>
+      <h1 className="text-2xl font-semibold mb-4">Update Task</h1>
 
       <div className="mb-4">
         <label className="block text-lg font-medium mb-1">Title:</label>
@@ -101,36 +101,16 @@ const PuzzleUpdate = () => {
       </div>
 
       <div className="mb-4">
-        <label className="block text-lg font-medium mb-1">Price:</label>
-        <input
-          type="number"
-          name="price"
-          value={formData.price || ''}
+        <label className="block text-lg font-medium mb-1">Status:</label>
+        <select
+          name="completed"
+          value={formData.completed || ''}
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-lg font-medium mb-1">Stock:</label>
-        <input
-          type="number"
-          name="stock"
-          value={formData.stock || ''}
-          onChange={handleInputChange}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-lg font-medium mb-1">Category:</label>
-        <input
-          type="text"
-          name="category"
-          value={formData.category || ''}
-          onChange={handleInputChange}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        >
+          <option value={true}>Completed</option>
+          <option value={false}>Pending</option>
+        </select>
       </div>
 
       <div className="mb-4">
@@ -141,10 +121,10 @@ const PuzzleUpdate = () => {
           onChange={handleFileChange}
           className="w-full px-4 py-2 border rounded-md focus:outline-none"
         />
-        {puzzle.image && (
+        {task.image && (
           <img
-            src={puzzle.image}
-            alt="Puzzle Image"
+            src={task.image}
+            alt="Task Image"
             className="w-32 h-32 object-contain mt-2"
           />
         )}
@@ -162,7 +142,7 @@ const PuzzleUpdate = () => {
 
         {/* Cancel Button */}
         <button
-          onClick={() => navigate(`/puzzle-details/${id}`)}
+          onClick={() => navigate(`/task-details/${id}`)}
           className="px-4 py-2 rounded-md bg-gray-500 text-white hover:bg-gray-600"
         >
           <FaUndo size={16} className="inline mr-2" />
@@ -170,7 +150,7 @@ const PuzzleUpdate = () => {
         </button>
       </div>
     </div>
-  );
+  ); 
 };
 
-export default PuzzleUpdate;
+export default TaskUpdate;

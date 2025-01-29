@@ -82,6 +82,7 @@ const TradeDetailsTable = () => {
             <th scope="col" className="px-6 py-3">Trade Signal</th>
             <th scope="col" className="px-6 py-3">Status</th>
             <th scope="col" className="px-6 py-3">Idea Candle</th>
+            <th scope="col" className="px-6 py-3">Daily Candle</th>
             <th scope="col" className="px-6 py-3">Line Graph Candle</th>
             <th scope="col" className="px-6 py-3">2-Hour Candle</th>
             <th scope="col" className="px-6 py-3">Hour Candle</th>
@@ -111,6 +112,14 @@ const TradeDetailsTable = () => {
                   alt="Idea Candle"
                   className="w-24 h-24 object-contain cursor-pointer"
                   onClick={() => openModal(trade.idea_candle)}
+                />
+              </td>
+              <td className="px-6 py-4">
+                <img
+                  src={trade.daily_candle}
+                  alt="Daily Candle"
+                  className="w-24 h-24 object-contain cursor-pointer"
+                  onClick={() => openModal(trade.daily_candle)}
                 />
               </td>
               <td className="px-6 py-4">

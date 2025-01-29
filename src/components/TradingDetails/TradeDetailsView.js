@@ -66,6 +66,7 @@ const TradeDetailsView = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {Object.entries({
           idea_candle: 'Idea Candle',
+          daily_candle: 'Daily Candle',
           signal_candle: 'Signal Candle',
           entry_candle: 'Entry Candle',
           line_graph_candle: 'Line Graph Candle',
