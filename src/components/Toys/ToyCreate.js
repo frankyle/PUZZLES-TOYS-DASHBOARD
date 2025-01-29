@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axiosInstance from '../../auth/axiosInstance'; // Ensure this is correctly configured
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../auth/axiosInstance';
 
 const ToyCreate = () => {
   const [formData, setFormData] = useState({
@@ -8,193 +8,196 @@ const ToyCreate = () => {
     description: '',
     price: '',
     stock: '',
-    sold: '',
     pieces: '',
-    image: '',
-    age_group: '',
-    rating: '',
+    category: 'Other',
+    age_group: '3-5 years',
+    rating: 0,
   });
-
+  const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Handle form input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  // Handle file input for image
-  const handleFileChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      image: e.target.files[0],
+      [name]: type === 'checkbox' ? checked : value,
     });
   };
 
-  // Submit the form data to create a new toy
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
 
-    const formDataToSend = new FormData();
-    Object.keys(formData).forEach((key) => {
-      formDataToSend.append(key, formData[key]);
-    });
+    const form = new FormData();
+    form.append('name', formData.name);
+    form.append('description', formData.description);
+    form.append('price', formData.price);
+    form.append('stock', formData.stock);
+    form.append('pieces', formData.pieces);
+    form.append('category', formData.category);
+    form.append('age_group', formData.age_group);
+    form.append('rating', formData.rating);
+    if (image) {
+      form.append('image', image);
+    }
 
     try {
-      const response = await axiosInstance.post('/api/toys/toys/', formDataToSend, {
+      await axiosInstance.post('/api/toys/toys/', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setLoading(false);
-      navigate('/toys'); // Redirect to the toys list page after successful creation
       alert('Toy created successfully!');
+      navigate('/toys');
     } catch (error) {
-      setLoading(false);
-      setError('Failed to create toy.');
       console.error('Error creating toy:', error);
+      alert('Failed to create toy.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-semibold mb-4">Create New Toy</h1>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        {error && <div className="text-red-500 mb-4">{error}</div>}
-        
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium">Name</label>
+    <div className="max-w-3xl mx-auto p-4 bg-white shadow rounded-lg">
+      <h1 className="text-2xl font-semibold mb-4">Create Toy</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Name</label>
           <input
             type="text"
-            id="name"
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
             required
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="description" className="block text-sm font-medium">Description</label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Description</label>
           <textarea
-            id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
-            required
+            rows="4"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
-        <div className="mb-4 grid grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="price" className="block text-sm font-medium">Price</label>
-            <input
-              type="number"
-              id="price"
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="stock" className="block text-sm font-medium">Stock</label>
-            <input
-              type="number"
-              id="stock"
-              name="stock"
-              value={formData.stock}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="mb-4 grid grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="sold" className="block text-sm font-medium">Sold</label>
-            <input
-              type="number"
-              id="sold"
-              name="sold"
-              value={formData.sold}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="pieces" className="block text-sm font-medium">Pieces</label>
-            <input
-              type="number"
-              id="pieces"
-              name="pieces"
-              value={formData.pieces}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="image" className="block text-sm font-medium">Image</label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Price</label>
           <input
-            type="file"
-            id="image"
-            name="image"
-            onChange={handleFileChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
             required
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="age_group" className="block text-sm font-medium">Age Group</label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Stock</label>
           <input
-            type="text"
-            id="age_group"
+            type="number"
+            name="stock"
+            value={formData.stock}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Pieces</label>
+          <input
+            type="number"
+            name="pieces"
+            value={formData.pieces}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Category</label>
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="Educational">Educational</option>
+            <option value="Action">Action</option>
+            <option value="Puzzle">Puzzle</option>
+            <option value="Plush">Plush</option>
+            <option value="For Fun">For Fun</option>
+            <option value="Creative">Creative</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Age Group</label>
+          <select
             name="age_group"
             value={formData.age_group}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
-            required
-          />
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="0-2 years">0-2 years</option>
+            <option value="3-5 years">3-5 years</option>
+            <option value="6-8 years">6-8 years</option>
+            <option value="9+ years">9+ years</option>
+          </select>
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="rating" className="block text-sm font-medium">Rating</label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Rating</label>
           <input
             type="number"
-            id="rating"
             name="rating"
             value={formData.rating}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
-            required
+            min="0"
+            max="5"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
-        <div className="mb-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none"
+          />
+        </div>
+
+        <div className="flex justify-between items-center">
           <button
             type="submit"
-            className="w-full py-2 bg-blue-500 text-white rounded-md"
             disabled={loading}
+            className={`px-4 py-2 rounded-md text-white ${
+              loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+            }`}
           >
             {loading ? 'Creating...' : 'Create Toy'}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigate('/toys')}
+            className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300"
+          >
+            Cancel
           </button>
         </div>
       </form>

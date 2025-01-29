@@ -49,7 +49,7 @@ const PuzzleCreate = () => {
         },
       });
       alert('Puzzle created successfully!');
-      navigate('/puzzles');
+      navigate('/puzzle');
     } catch (error) {
       console.error('Error creating puzzle:', error);
       alert('Failed to create puzzle.');

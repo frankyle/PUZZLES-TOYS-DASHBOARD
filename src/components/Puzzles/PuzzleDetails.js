@@ -33,7 +33,7 @@ const PuzzleDetails = () => {
       try {
         await axiosInstance.delete(`/api/puzzles/puzzles/${id}/`); // Adjust URL for delete
         alert('Puzzle deleted successfully.');
-        navigate('/puzzles'); // Redirect to puzzles list after deletion
+        navigate('/puzzle'); // Redirect to puzzles list after deletion
       } catch (error) {
         console.error('Error deleting puzzle:', error);
         alert('Failed to delete puzzle.');
