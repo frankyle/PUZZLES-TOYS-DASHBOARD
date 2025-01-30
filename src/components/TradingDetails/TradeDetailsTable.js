@@ -84,10 +84,11 @@ const TradeDetailsTable = () => {
             <th scope="col" className="px-6 py-3">Idea Candle</th>
             <th scope="col" className="px-6 py-3">Daily Candle</th>
             <th scope="col" className="px-6 py-3">Line Graph Candle</th>
+            <th scope="col" className="px-6 py-3">4-Hour Candle</th>
             <th scope="col" className="px-6 py-3">2-Hour Candle</th>
-            <th scope="col" className="px-6 py-3">Hour Candle</th>
-            <th scope="col" className="px-6 py-3">Signal Candle</th>
-            <th scope="col" className="px-6 py-3">Entry Candle</th>
+            <th scope="col" className="px-6 py-3">1-Hour Candle</th>
+            <th scope="col" className="px-6 py-3">Signal Candle(30min)</th>
+            <th scope="col" className="px-6 py-3">Entry Candle(15min)</th>
             <th scope="col" className="px-6 py-3">Breakeven Candle</th>
             <th scope="col" className="px-6 py-3">Take Profit 1 Candle</th>
             <th scope="col" className="px-6 py-3">Take Profit 2 Candle</th>
@@ -132,6 +133,14 @@ const TradeDetailsTable = () => {
               </td>
               <td className="px-6 py-4">
                 <img
+                  src={trade.four_hour_candle}
+                  alt="2-Hour Candle"
+                  className="w-24 h-24 object-contain cursor-pointer"
+                  onClick={() => openModal(trade.four_hour_candle)}
+                />
+              </td>
+              <td className="px-6 py-4">
+                <img
                   src={trade.two_hour_candle}
                   alt="2-Hour Candle"
                   className="w-24 h-24 object-contain cursor-pointer"
@@ -162,8 +171,6 @@ const TradeDetailsTable = () => {
                   onClick={() => openModal(trade.entry_candle)}
                 />
               </td>
-
-              
               <td className="px-6 py-4">
                 <img
                   src={trade.breakeven_candle}

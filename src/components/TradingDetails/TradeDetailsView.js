@@ -71,6 +71,7 @@ const TradeDetailsView = () => {
           entry_candle: 'Entry Candle',
           line_graph_candle: 'Line Graph Candle',
           hour_candle: 'Hour Candle',
+          four_hour_candle: '4-Hour Candle',
           two_hour_candle: '2-Hour Candle',
           breakeven_candle: 'Breakeven Candle',
           take_profit1_candle: 'Take Profit 1 Candle',
