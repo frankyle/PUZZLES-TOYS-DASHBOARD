@@ -37,6 +37,7 @@ import ToysUpdate from "./components/Toys/ToyUpdate";
 import GameUpdate from "./components/Games/GameUpdate";
 import GameCreate from "./components/Games/GameCreate";
 import ToyCreate from "./components/Toys/ToyCreate";
+import PuzzleCardviews from "./components/Puzzles/PuzzleCardviews";
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
 
             
             <Route path="/puzzle" element={<PuzzleTable />} />
+            <Route path="/puzzle-list" element={<PuzzleCardviews />} />
             <Route path="/puzzle-create" element={<PuzzleCreate />} />
             <Route path="/puzzle-view/:id" element={<PuzzleDetails />} />
             <Route path="/puzzle-edit/:id" element={<PuzzleUpdate />} />

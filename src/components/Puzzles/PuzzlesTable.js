@@ -3,6 +3,7 @@ import axiosInstance from '../../auth/axiosInstance';
 import { FaEye, FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import CreateButton from '../../utils/CreateButton';
+import CardViewButton from '../../utils/CardViewButton';
 
 const PuzzleTable = () => {
   const [puzzles, setPuzzles] = useState([]);
@@ -61,6 +62,7 @@ const PuzzleTable = () => {
   return (
     <div className="overflow-x-auto shadow-md sm:rounded-lg">
       <CreateButton text="Create Puzzle" redirectTo="/puzzle-create" />
+      <CardViewButton text="Card View" redirectTo="/puzzle-list" />
       <table className="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
