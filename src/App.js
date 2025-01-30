@@ -38,6 +38,8 @@ import GameUpdate from "./components/Games/GameUpdate";
 import GameCreate from "./components/Games/GameCreate";
 import ToyCreate from "./components/Toys/ToyCreate";
 import PuzzleCardviews from "./components/Puzzles/PuzzleCardviews";
+import ToysCardView from "./components/Toys/ToysCardview";
+import GamesLitsView from "./components/Games/GamesLitsView";
 
 function App() {
   return (
@@ -83,12 +85,14 @@ function App() {
 
 
             <Route path="/toys" element={<ToysTable />} />
+            <Route path="/toys-list" element={<ToysCardView />} />
             <Route path="/toy-create" element={<ToyCreate />} />
             <Route path="/toy-view/:id" element={<ToyDetails />} />
             <Route path="/toy-edit/:id" element={<ToysUpdate />} />
 
 
             <Route path="/games" element={<GamesTable />} />
+            <Route path="/game-list" element={<GamesLitsView />} />
             <Route path="/game-create" element={<GameCreate />} />
             <Route path="/game-view/:id" element={<GameDetails />} />
             <Route path="/game-edit/:id" element={<GameUpdate />} />

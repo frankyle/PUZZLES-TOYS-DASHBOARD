@@ -3,6 +3,7 @@ import axiosInstance from '../../auth/axiosInstance'; // Ensure this is correctl
 import { FaEye, FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import CreateButton from '../../utils/CreateButton';
+import CardViewButton from '../../utils/CardViewButton';
 
 const ToysTable = () => {
   const [toys, setToys] = useState([]);
@@ -62,6 +63,8 @@ const ToysTable = () => {
   return (
     <div className="overflow-x-auto shadow-md sm:rounded-lg">
       <CreateButton text="Create Toy" redirectTo="/toy-create" />
+      <CardViewButton text="Card View" redirectTo="/toys-list" />
+     
       <table className="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
