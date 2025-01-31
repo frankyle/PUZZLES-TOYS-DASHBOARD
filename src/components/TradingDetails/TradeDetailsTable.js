@@ -81,7 +81,8 @@ const TradeDetailsTable = () => {
             <th scope="col" className="px-6 py-3">Traders Idea Name</th>
             <th scope="col" className="px-6 py-3">Trade Signal</th>
             <th scope="col" className="px-6 py-3">Status</th>
-            <th scope="col" className="px-6 py-3">Idea Candle</th>
+            <th scope="col" className="px-6 py-3">Tradeview Idea</th>
+            <th scope="col" className="px-6 py-3">Youtube Idea</th>
             <th scope="col" className="px-6 py-3">Daily Candle</th>
             <th scope="col" className="px-6 py-3">Line Graph Candle</th>
             <th scope="col" className="px-6 py-3">4-Hour Candle</th>
@@ -92,6 +93,7 @@ const TradeDetailsTable = () => {
             <th scope="col" className="px-6 py-3">Breakeven Candle</th>
             <th scope="col" className="px-6 py-3">Take Profit 1 Candle</th>
             <th scope="col" className="px-6 py-3">Take Profit 2 Candle</th>
+            <th scope="col" className="px-6 py-3">Stop Loss Candle</th>
             <th scope="col" className="px-6 py-3">Status</th>
             <th scope="col" className="px-6 py-3">Created At</th>
           </tr>
@@ -113,6 +115,14 @@ const TradeDetailsTable = () => {
                   alt="Idea Candle"
                   className="w-24 h-24 object-contain cursor-pointer"
                   onClick={() => openModal(trade.idea_candle)}
+                />
+              </td>
+              <td className="px-6 py-4">
+                <img
+                  src={trade.youtube_candle}
+                  alt="Youtube Candle"
+                  className="w-24 h-24 object-contain cursor-pointer"
+                  onClick={() => openModal(trade.youtube_candle)}
                 />
               </td>
               <td className="px-6 py-4">
@@ -193,6 +203,14 @@ const TradeDetailsTable = () => {
                     alt="Take Profit 2 Candle"
                     className="w-24 h-24 object-contain cursor-pointer"
                     onClick={() => openModal(trade.take_profit_two_candle)}
+                  />
+                </td>
+                <td className="px-6 py-4">
+                  <img
+                    src={trade.stoploss_candle}
+                    alt="Stop Loss Candle"
+                    className="w-24 h-24 object-contain cursor-pointer"
+                    onClick={() => openModal(trade.stoploss_candle)}
                   />
                 </td>
 

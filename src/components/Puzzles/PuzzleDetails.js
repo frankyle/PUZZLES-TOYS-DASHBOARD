@@ -68,9 +68,11 @@ const PuzzleDetails = () => {
       <div className="mb-4">
         <strong className="text-lg">Stock:</strong> {puzzle.stock}
       </div>
-
       <div className="mb-4">
-        <strong className="text-lg">Category:</strong> {puzzle.category}
+        <strong className="text-lg">Sold:</strong> {puzzle.sold}
+      </div>
+      <div className="mb-4">
+        <strong className="text-lg">Rating:</strong> {puzzle.rating}
       </div>
 
       {puzzle.image && (

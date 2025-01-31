@@ -68,6 +68,8 @@ const PuzzleCardviews = () => {
               <p className="text-gray-600 text-sm">{puzzle.description}</p>
               <p className="text-lg font-semibold mt-2">${puzzle.price}</p>
               <p className="text-sm text-gray-500">Stock: {puzzle.stock} | Sold: {puzzle.sold}</p>
+              <p className="text-sm text-gray-500">Rating: {puzzle.rating} | Rating: {puzzle.rating}</p>
+              <p className="text-sm text-gray-500">Sold: {puzzle.sold} | Sold: {puzzle.sold}</p>
               <div className="flex justify-between items-center mt-4">
                 <button
                   onClick={() => handleView(puzzle.id)}

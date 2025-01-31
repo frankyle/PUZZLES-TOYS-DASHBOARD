@@ -3,6 +3,7 @@ import axiosInstance from '../../auth/axiosInstance';  // Adjust path to your ax
 import { FaEye, FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import CreateButton from '../../utils/CreateButton';
+import CardViewButton from '../../utils/CardViewButton';
 
 const GamesTable = () => {
   const [games, setGames] = useState([]);
@@ -61,6 +62,8 @@ const GamesTable = () => {
   return (
     <div className="overflow-x-auto shadow-md sm:rounded-lg">
       <CreateButton text="Create Game" redirectTo="/game-create" />
+      <CardViewButton text="Card View" redirectTo="/game-list" />
+     
       <table className="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>

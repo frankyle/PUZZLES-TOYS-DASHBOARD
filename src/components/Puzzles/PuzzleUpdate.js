@@ -50,6 +50,8 @@ const PuzzleUpdate = () => {
     form.append('price', formData.price);
     form.append('stock', formData.stock);
     form.append('pieces', formData.pieces);
+    form.append('sold', formData.sold);
+    form.append('rating', formData.rating);
     form.append('age_group', formData.age_group);
     if (image) {
       form.append('image', image);
@@ -98,6 +100,14 @@ const PuzzleUpdate = () => {
         <div>
           <label className="block text-sm font-medium text-gray-700">Pieces</label>
           <input type="number" name="pieces" value={formData.pieces} onChange={handleChange} required className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Sold</label>
+          <input type="number" name="sold" value={formData.sold} onChange={handleChange} required className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Rating</label>
+          <input type="number" name="rating" value={formData.rating} onChange={handleChange} required className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
         <div>
