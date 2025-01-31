@@ -1,9 +1,10 @@
 import React from "react";
 import AccountGrowthChart from "./AccountGrowthChart";
-import StatsCards from "./StatsCards";
+// import StatsCards from "./StatsCards";
 import TradeHistoryTable from "./TradeHistoryTable";
 import TradeSetups from "./TradeSetups";
 import RiskManagement from "./RiskManagement";
+import TradesSetupAdvertisement from "./TradesSetupAdvertisement";
 
 const Dashboard = () => {
   return (
@@ -24,7 +25,7 @@ const Dashboard = () => {
 
       {/* Stats Cards Section */}
       <div className="mt-6">
-        <StatsCards />
+        <TradesSetupAdvertisement/>
       </div>
 
       {/* Main Content: Trade History & Side Panel */}

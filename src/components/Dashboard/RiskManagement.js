@@ -6,10 +6,17 @@ const RiskManagement = () => {
   const [profitLoss, setProfitLoss] = useState("");
   const [profitLossPips, setProfitLossPips] = useState("");
   const [balance, setBalance] = useState(10000); // Default balance
+  const [maxRisk, setMaxRisk] = useState(0); // Maximum risk per trade
+
+  // Calculate 20% of the updated balance as max risk per trade
+  const calculateMaxRisk = () => {
+    return (balance * 0.2).toFixed(2);
+  };
 
   const handleCalculate = () => {
     const newBalance = balance + parseFloat(profitLoss || 0);
     setBalance(newBalance);
+    setMaxRisk(calculateMaxRisk());
   };
 
   return (
@@ -73,6 +80,11 @@ const RiskManagement = () => {
       {/* Display Balance */}
       <div className="mt-4 text-center">
         <h3 className="text-lg font-bold">Updated Balance: ${balance.toFixed(2)}</h3>
+      </div>
+
+      {/* Display Maximum Risk */}
+      <div className="mt-4 text-center">
+        <h3 className="text-lg font-bold">Maximum Risk per Trade: ${maxRisk}</h3>
       </div>
     </div>
   );
