@@ -11,6 +11,7 @@ const TradingDetailsCreate = () => {
 
   const [images, setImages] = useState({
     idea_candle: null,
+    youtube_candle: null,
     daily_candle: null,
     line_graph_candle: null,
     signal_candle: null,
@@ -21,6 +22,7 @@ const TradingDetailsCreate = () => {
     breakeven_candle: null,
     take_profit_one_candle: null,
     take_profit_two_candle: null,
+    stoploss_candle: null,
   });
 
   const [loading, setLoading] = useState(false);
@@ -72,6 +74,7 @@ const TradingDetailsCreate = () => {
       });
       setImages({
         idea_candle: null,
+        youtube_candle: null,
         daily_candle: null,
         line_graph_candle: null,
         signal_candle: null,
@@ -82,6 +85,7 @@ const TradingDetailsCreate = () => {
         breakeven_candle: null,
         take_profit_one_candle: null,
         take_profit_two_candle: null,
+        stoploss_candle: null,
       });
     } catch (error) {
       console.error("Error creating trade detail:", error);

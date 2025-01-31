@@ -66,6 +66,7 @@ const TradeDetailsView = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {Object.entries({
           idea_candle: 'Idea Candle',
+          you_candle: 'Youtube Candle',
           daily_candle: 'Daily Candle',
           signal_candle: 'Signal Candle',
           entry_candle: 'Entry Candle',
@@ -76,6 +77,7 @@ const TradeDetailsView = () => {
           breakeven_candle: 'Breakeven Candle',
           take_profit1_candle: 'Take Profit 1 Candle',
           take_profit2_candle: 'Take Profit 2 Candle',
+          stoploss_candle: 'Stop Loss Candle',
         }).map(([key, label]) => (
           <div key={key}>
             <strong>{label}:</strong>

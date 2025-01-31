@@ -138,7 +138,7 @@ const TradeDetailsUpdate = () => {
         </div>
 
         {/* Image Upload Inputs for Candles */}
-        {['idea_candle', 'line_graph_candle','daily_candle', 'four_hour_candle','two_hour_candle', 'hour_candle', 'signal_candle', 'entry_candle', 'breakeven_candle', 'take_profit_one_candle', 'take_profit_two_candle'].map((candleType) => (
+        {['idea_candle', 'youtube_candle', 'line_graph_candle','daily_candle', 'four_hour_candle','two_hour_candle', 'hour_candle', 'signal_candle', 'entry_candle', 'breakeven_candle', 'take_profit_one_candle', 'take_profit_two_candle', 'stoploss_candle'].map((candleType) => (
           <div key={candleType} className="flex flex-col gap-2">
             <label htmlFor={candleType} className="text-lg font-medium">{candleType.replace('_', ' ').toUpperCase()} Image:</label>
             <input

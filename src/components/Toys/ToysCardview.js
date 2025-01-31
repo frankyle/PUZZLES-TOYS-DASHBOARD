@@ -116,7 +116,7 @@ const ToysCardView = () => {
       {selectedImage && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center" onClick={closeModal}>
           <div className="bg-white p-4 rounded-lg shadow-lg max-w-lg" onClick={(e) => e.stopPropagation()}>
-            <img src={selectedImage} alt="Selected Toy" className="w-full h-auto rounded-lg" />
+            <img src={selectedImage} alt="Selected Toy" className="w-full h-auto rounded-lg " />
           </div>
         </div>
       )}
