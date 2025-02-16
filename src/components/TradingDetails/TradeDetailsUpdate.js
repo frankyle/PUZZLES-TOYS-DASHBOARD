@@ -74,14 +74,13 @@ const TradeDetailsUpdate = () => {
   if (loading) {
     return <div className="text-center text-xl">Loading...</div>;
   }
-
   return (
-    <div className="max-w-4xl mx-auto p-8">
-      <h1 className="text-3xl font-semibold mb-6 text-center">Edit Trade Details</h1>
+    <div className="max-w-4xl mx-auto p-8 bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg rounded-lg mt-10">
+      <h1 className="text-4xl font-bold text-center text-white mb-8">Edit Trade Details</h1>
 
-      <form onSubmit={handleUpdate} className="space-y-6">
+      <form onSubmit={handleUpdate} className="bg-white p-6 rounded-lg shadow-md space-y-6">
         {/* Grid Layout for Form Fields */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           <div className="flex flex-col gap-2">
             <label htmlFor="currency_pair" className="text-lg font-medium">Currency Pair:</label>
             <input
@@ -90,7 +89,7 @@ const TradeDetailsUpdate = () => {
               value={formData.currency_pair || ''}
               onChange={handleInputChange}
               id="currency_pair"
-              className="px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
           </div>
@@ -103,7 +102,7 @@ const TradeDetailsUpdate = () => {
               value={formData.traders_idea_name || ''}
               onChange={handleInputChange}
               id="traders_idea_name"
-              className="px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
           </div>
@@ -116,7 +115,7 @@ const TradeDetailsUpdate = () => {
               value={formData.trade_signal || ''}
               onChange={handleInputChange}
               id="trade_signal"
-              className="px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
           </div>
@@ -128,7 +127,7 @@ const TradeDetailsUpdate = () => {
               value={formData.is_active || ''}
               onChange={handleInputChange}
               id="is_active"
-              className="px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             >
               <option value="true">Active</option>
@@ -138,40 +137,42 @@ const TradeDetailsUpdate = () => {
         </div>
 
         {/* Image Upload Inputs for Candles */}
-        {['idea_candle', 'youtube_candle', 'line_graph_candle','daily_candle', 'four_hour_candle','two_hour_candle', 'hour_candle', 'signal_candle', 'entry_candle', 'breakeven_candle', 'take_profit_one_candle', 'take_profit_two_candle', 'stoploss_candle'].map((candleType) => (
-          <div key={candleType} className="flex flex-col gap-2">
-            <label htmlFor={candleType} className="text-lg font-medium">{candleType.replace('_', ' ').toUpperCase()} Image:</label>
-            <input
-              type="file"
-              name={candleType}
-              onChange={handleFileChange}
-              id={candleType}
-              className="px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            {formData[candleType] && formData[candleType] instanceof File && (
-              <img
-                src={URL.createObjectURL(formData[candleType])}
-                alt={candleType}
-                className="mt-2 w-24 h-24 object-contain"
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {['idea_candle','idea_candle_two', 'youtube_candle', 'line_graph_candle', 'daily_candle', 'four_hour_candle', 'two_hour_candle', 'hour_candle', 'signal_candle', 'entry_candle', 'breakeven_candle', 'take_profit_one_candle', 'take_profit_two_candle', 'stoploss_candle'].map((candleType) => (
+            <div key={candleType} className="flex flex-col gap-2">
+              <label htmlFor={candleType} className="text-lg font-medium">{candleType.replace('_', ' ').toUpperCase()} Image:</label>
+              <input
+                type="file"
+                name={candleType}
+                onChange={handleFileChange}
+                id={candleType}
+                className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
-            )}
+              {formData[candleType] && formData[candleType] instanceof File && (
+                <img
+                  src={URL.createObjectURL(formData[candleType])}
+                  alt={candleType}
+                  className="mt-2 w-24 h-24 object-contain border border-gray-300 rounded-lg"
+                />
+              )}
 
-            {/* Displaying already saved image if available */}
-            {trade[candleType] && !formData[candleType] && (
-              <img
-                src={trade[candleType]}
-                alt={candleType}
-                className="mt-2 w-24 h-24 object-contain"
-              />
-            )}
-          </div>
-        ))}
+              {/* Displaying already saved image if available */}
+              {trade[candleType] && !formData[candleType] && (
+                <img
+                  src={trade[candleType]}
+                  alt={candleType}
+                  className="mt-2 w-24 h-24 object-contain border border-gray-300 rounded-lg"
+                />
+              )}
+            </div>
+          ))}
+        </div>
 
         {/* Save and Cancel Buttons */}
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-6">
           <button
             type="submit"
-            className="px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+            className="flex items-center justify-center px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition duration-300"
           >
             <FaSave size={18} className="inline mr-2" />
             Save Changes
@@ -180,7 +181,7 @@ const TradeDetailsUpdate = () => {
           <button
             type="button"
             onClick={() => navigate(`/trade-details`)}
-            className="px-6 py-3 bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray-700 transition duration-300"
+            className="flex items-center justify-center px-6 py-3 bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray- 700 transition duration-300"
           >
             <FaUndo size={18} className="inline mr-2" />
             Cancel

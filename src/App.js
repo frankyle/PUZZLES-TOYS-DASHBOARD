@@ -40,6 +40,11 @@ import ToyCreate from "./components/Toys/ToyCreate";
 import PuzzleCardviews from "./components/Puzzles/PuzzleCardviews";
 import ToysCardView from "./components/Toys/ToysCardview";
 import GamesLitsView from "./components/Games/GamesLitsView";
+import TradeSetupView from "./components/Dashboard/TradeSetupView";
+import RiskTradesTable from "./components/RiskTrade/RiskTradeTable";
+import RiskTradesCreate from "./components/RiskTrade/RiskTradeCreate";
+import RiskTradeDetails from "./components/RiskTrade/RiskTradeDetails";
+import RiskTradeUpdate from "./components/RiskTrade/RiskTradeUpdate";
 
 function App() {
   return (
@@ -57,7 +62,9 @@ function App() {
             <Route path="/trade-details/:id" element={<TradeDetailsView />} />
             <Route path="/trade-details-edit/:id" element={<TradeDetailsUpdate />} />
             <Route path="/trade-details/delete/:id" element={<TableDetailsDelete />} /> {/* Delete Route */}
+            <Route path="/trade-setup/:id" element={<TradeSetupView />} />
             
+
             <Route path="/tasks" element={<TasksTable />} />
             <Route path="/task-create" element={<TaskCreate />} />
             <Route path="/task-details/:id" element={<TaskDetails />} />
@@ -69,6 +76,7 @@ function App() {
             <Route path="/candles-image-create" element={<CandleImageCreate />} />
             <Route path="/candle-view/:id" element={<CandleImagesView />} />
             <Route path="/candle-images-edit/:id" element={<CandleImageUpdate />} />
+
 
             <Route path="/indicators-confirmations" element={<IndicatorsTable />} />
             <Route path="/indicators-create" element={<IndicatorsCreate />} />
@@ -96,6 +104,13 @@ function App() {
             <Route path="/game-create" element={<GameCreate />} />
             <Route path="/game-view/:id" element={<GameDetails />} />
             <Route path="/game-edit/:id" element={<GameUpdate />} />
+
+
+            <Route path="/risk-trade" element={<RiskTradesTable />} />
+            <Route path="/risk-trade-create" element={<RiskTradesCreate />} />
+            <Route path="/risk-trade-view/:id" element={<RiskTradeDetails />} />
+            <Route path="/risk-trade-edit/:id" element={<RiskTradeUpdate />} />
+
 
             <Route path="/billing" element={<Billing />} />
             <Route path="/login" element={<Login />} />

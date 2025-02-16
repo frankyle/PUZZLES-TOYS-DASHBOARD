@@ -11,6 +11,7 @@ const TradingDetailsCreate = () => {
 
   const [images, setImages] = useState({
     idea_candle: null,
+    idea_candle_two: null,
     youtube_candle: null,
     daily_candle: null,
     line_graph_candle: null,
@@ -74,6 +75,7 @@ const TradingDetailsCreate = () => {
       });
       setImages({
         idea_candle: null,
+        idea_candle_two: null,
         youtube_candle: null,
         daily_candle: null,
         line_graph_candle: null,

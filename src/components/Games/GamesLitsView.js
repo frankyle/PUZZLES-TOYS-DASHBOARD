@@ -62,7 +62,7 @@ const GamesLitsView = () => {
   return (
     <div className="container mx-auto p-6">
       <CreateButton text="Create Game" redirectTo="/game-create" />
-      <TableViewButton text="Table View" redirectTo="/game" />
+      <TableViewButton text="Table View" redirectTo="/games" />
      
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
         {Array.isArray(games) && games.length > 0 ? (

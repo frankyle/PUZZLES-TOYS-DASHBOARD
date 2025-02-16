@@ -1,10 +1,7 @@
 import React from "react";
 import AccountGrowthChart from "./AccountGrowthChart";
-// import StatsCards from "./StatsCards";
 import TradeHistoryTable from "./TradeHistoryTable";
-import TradeSetups from "./TradeSetups";
-import RiskManagement from "./RiskManagement";
-import TradesSetupAdvertisement from "./TradesSetupAdvertisement";
+import TradesSetups from "./TradesSetups";
 
 const Dashboard = () => {
   return (
@@ -17,25 +14,13 @@ const Dashboard = () => {
         <AccountGrowthChart title="Account Growth (TSh)" dataKey="account_tsh" color="#60a5fa" />
         <AccountGrowthChart title="Pips Gained" dataKey="pips_gained" color="#facc15" />
       </div>
-
-      {/* Risk Management Section */}
-      <div className="mt-6">
-        <RiskManagement />
-      </div>
-
       {/* Stats Cards Section */}
       <div className="mt-6">
-        <TradesSetupAdvertisement/>
+        <TradesSetups/>
       </div>
 
-      {/* Main Content: Trade History & Side Panel */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-        <div className="md:col-span-2 bg-gray-800 p-4 rounded-lg">
+     <div >
           <TradeHistoryTable />
-        </div>
-        <div className="bg-gray-800 p-4 rounded-lg">
-          <TradeSetups />
-        </div>
       </div>
     </div>
   );
