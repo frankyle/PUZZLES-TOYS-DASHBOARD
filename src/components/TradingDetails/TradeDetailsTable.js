@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../auth/axiosInstance';
-import { FaEdit, FaTrashAlt, FaLightbulb } from 'react-icons/fa'; // Import icons
+import { FaEdit, FaTrashAlt, FaLightbulb, FaSortUp, FaSortDown } from 'react-icons/fa'; // Import icons
 import CreateButton from '../../utils/CreateButton';
 import { useNavigate } from 'react-router-dom';
+import TradeDetailsModal from '../../utils/TradeDetailsModal';
 
 const TradeDetailsTable = () => {
   const [tradeDetails, setTradeDetails] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ key: 'currency_pair', direction: 'ascending' });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,7 +17,7 @@ const TradeDetailsTable = () => {
       try {
         const response = await axiosInstance.get('/api/tradedetails/tradedetails/');
         if (response.data && Array.isArray(response.data.results)) {
-          const sortedTrades = response.data.results.sort((a, b) => b.is_active - a.is_active);
+          const sortedTrades = sortData(response.data.results);
           setTradeDetails(sortedTrades);
         } else {
           console.error('Unexpected response format:', response.data);
@@ -27,6 +29,29 @@ const TradeDetailsTable = () => {
 
     fetchTradeDetails();
   }, []);
+
+  const sortData = (data) => {
+    const sortedData = [...data];
+    sortedData.sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? 1 : -1;
+      }
+      return 0;
+    });
+    return sortedData;
+  };
+
+  const handleSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+    setTradeDetails((prevTradeDetails) => sortData(prevTradeDetails));
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -49,12 +74,11 @@ const TradeDetailsTable = () => {
   };
 
   const handleTradingIdea = (id) => {
-    console.log('Navigating to trade details with ID:', id); // Debugging log
+    console.log('Navigating to trade details with ID:', id);
     navigate(`/trade-details/${id}`);
   };
 
   const handleEdit = (id) => {
-    // Redirect to the edit page for the specific trade
     navigate(`/trade-details-edit/${id}`);
   };
 
@@ -73,15 +97,19 @@ const TradeDetailsTable = () => {
 
   return (
     <div className="overflow-x-auto shadow-md sm:rounded-lg">
-      <CreateButton text="Create Trading Detail" redirectTo="/trade-details-create" />  
+      <CreateButton text="Create Trading Detail" redirectTo="/trade-details-create" />
       <table className="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="px-6 py-3">Currency Pair</th>
+          <th scope="col" className="px-6 py-3"><strong>S/N</strong></th>
+            <th scope="col" className="px-6 py-3 cursor-pointer" onClick={() => handleSort('currency_pair')}>
+              Currency Pair {sortConfig.key === 'currency_pair' && (sortConfig.direction === 'ascending' ? <FaSortUp /> : <FaSortDown />)}
+            </th>
             <th scope="col" className="px-6 py-3">Traders Idea Name</th>
             <th scope="col" className="px-6 py-3">Trade Signal</th>
             <th scope="col" className="px-6 py-3">Status</th>
             <th scope="col" className="px-6 py-3">Tradeview Idea</th>
+            <th scope="col" className="px-6 py-3">Tradeview Idea Two</th>
             <th scope="col" className="px-6 py-3">Youtube Idea</th>
             <th scope="col" className="px-6 py-3">Daily Candle</th>
             <th scope="col" className="px-6 py-3">Line Graph Candle</th>
@@ -99,8 +127,9 @@ const TradeDetailsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {tradeDetails.map((trade) => (
+          {tradeDetails.map((trade, index) => (
             <tr key={trade.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td className="px-6 py-4">{index + 1}</td>
               <td className="px-6 py-4">{trade.currency_pair}</td>
               <td className="px-6 py-4">{trade.traders_idea_name}</td>
               <td className="px-6 py-4">{trade.trade_signal}</td>
@@ -117,6 +146,16 @@ const TradeDetailsTable = () => {
                   onClick={() => openModal(trade.idea_candle)}
                 />
               </td>
+
+              <td className="px-6 py-4">
+                <img
+                  src={trade.idea_candle_two}
+                  alt="Idea Candle"
+                  className="w-24 h-24 object-contain cursor-pointer"
+                  onClick={() => openModal(trade.idea_candle_two)}
+                />
+              </td>
+
               <td className="px-6 py-4">
                 <img
                   src={trade.youtube_candle}
@@ -144,7 +183,7 @@ const TradeDetailsTable = () => {
               <td className="px-6 py-4">
                 <img
                   src={trade.four_hour_candle}
-                  alt="2-Hour Candle"
+                  alt="4-Hour Candle"
                   className="w-24 h-24 object-contain cursor-pointer"
                   onClick={() => openModal(trade.four_hour_candle)}
                 />
@@ -190,42 +229,38 @@ const TradeDetailsTable = () => {
                 />
               </td>
               <td className="px-6 py-4">
-                  <img
-                    src={trade.take_profit_one_candle}
-                    alt="Take Profit 1 Candle"
-                    className="w-24 h-24 object-contain cursor-pointer"
-                    onClick={() => openModal(trade.take_profit_one_candle)}
-                  />
-                </td>
-                <td className="px-6 py-4">
-                  <img
-                    src={trade.take_profit_two_candle}
-                    alt="Take Profit 2 Candle"
-                    className="w-24 h-24 object-contain cursor-pointer"
-                    onClick={() => openModal(trade.take_profit_two_candle)}
-                  />
-                </td>
-                <td className="px-6 py-4">
-                  <img
-                    src={trade.stoploss_candle}
-                    alt="Stop Loss Candle"
-                    className="w-24 h-24 object-contain cursor-pointer"
-                    onClick={() => openModal(trade.stoploss_candle)}
-                  />
-                </td>
-
+                <img
+                  src={trade.take_profit_one_candle}
+                  alt="Take Profit 1 Candle"
+                  className="w-24 h-24 object-contain cursor-pointer"
+                  onClick={() => openModal(trade.take_profit_one_candle)}
+                />
+              </td>
+              <td className="px-6 py-4">
+                <img
+                  src={trade.take_profit_two_candle}
+                  alt="Take Profit 2 Candle"
+                  className="w-24 h-24 object-contain cursor-pointer"
+                  onClick={() => openModal(trade.take_profit_two_candle)}
+                />
+              </td>
+              <td className="px-6 py-4">
+                <img
+                  src={trade.stoploss_candle}
+                  alt="Stop Loss Candle"
+                  className="w-24 h-24 object-contain cursor-pointer"
+                  onClick={() => openModal(trade.stoploss_candle)}
+                />
+              </td>
               <td className="px-6 py-4">{formatDate(trade.created_at)}</td>
-               <td className="px-6 py-4 flex space-x-4">
-                {/* Trading Idea Button */}
+              <td className="px-6 py-4 flex space-x-4">
                 <button
-                  onClick={() => handleTradingIdea(trade.id)} // Updated to pass the id directly
+                  onClick={() => handleTradingIdea(trade.id)}
                   className="text-yellow-500 hover:text-yellow-700"
                   title="View Trading Idea"
                 >
                   <FaLightbulb size={20} />
                 </button>
-
-                {/* Edit Button */}
                 <button
                   onClick={() => handleEdit(trade.id)}
                   className="text-blue-500 hover:text-blue-700"
@@ -233,8 +268,6 @@ const TradeDetailsTable = () => {
                 >
                   <FaEdit size={20} />
                 </button>
-
-                {/* Delete Button */}
                 <button
                   onClick={() => handleDelete(trade.id)}
                   className="text-red-500 hover:text-red-700"
@@ -248,23 +281,9 @@ const TradeDetailsTable = () => {
         </tbody>
       </table>
 
-      {modalOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          onClick={closeModal}
-        >
-          <div
-            className="bg-white p-4 rounded-lg max-w-full max-h-full overflow-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={selectedImage}
-              alt="Selected"
-              className="max-w-full max-h-screen object-contain"
-            />
-          </div>
-        </div>
-      )}
+        {/* Image Modal */}
+        <TradeDetailsModal isOpen={modalOpen} imageUrl={selectedImage} onClose={closeModal} />
+  
     </div>
   );
 };
